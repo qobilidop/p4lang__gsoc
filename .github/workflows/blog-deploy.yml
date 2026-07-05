@@ -1,0 +1,137 @@
+# Publishes Blog Build output to gh-pages: push builds go to blog/,
+# PR builds go to blog/pr-preview/pr-<N>/.
+#
+# Triggered via workflow_run so it runs in the base repo's context with write
+# permissions, even for PRs from forks. Because of that, nothing from the
+# build artifact may be executed here, and deploy decisions must rest on
+# server-side event data, not artifact contents (which a PR fully controls):
+#   - production deploys require workflow_run.event == push/workflow_dispatch
+#     on main, so a PR can never publish to the live blog;
+#   - the artifact-declared PR number must name an open PR whose head SHA
+#     matches workflow_run.head_sha, so a PR can't hijack another PR's
+#     preview directory or comment.
+#
+# No concurrency group: a shared group would let GitHub silently cancel
+# pending runs (only one may queue per group). Instead, stale runs skip
+# themselves via the head-SHA freshness checks below, and concurrent pushes
+# to gh-pages are resolved by the deploy action's rebase retries (force:
+# false).
+name: Blog Deploy
+
+on:
+  workflow_run:
+    workflows: [Blog Build]
+    types: [completed]
+
+permissions:
+  contents: write
+  pull-requests: write
+  actions: read
+
+jobs:
+  deploy:
+    if: github.event.workflow_run.conclusion == 'success'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Download site artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: blog-site
+          path: site
+          run-id: ${{ github.event.workflow_run.id }}
+          github-token: ${{ github.token }}
+
+      - name: Determine deploy target
+        id: target
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            const run = context.payload.workflow_run;
+
+            if (run.event === 'pull_request') {
+              let pr = '';
+              if (fs.existsSync('site/_meta/pr_number.txt')) {
+                pr = fs.readFileSync('site/_meta/pr_number.txt', 'utf8').trim();
+              }
+              // Strip build metadata so it never reaches the preview. Only
+              // PR artifacts reserve the _meta path; production output is
+              // published untouched.
+              fs.rmSync('site/_meta', { recursive: true, force: true });
+
+              if (!/^\d+$/.test(pr)) {
+                core.setFailed('PR build did not record a valid PR number.');
+                return;
+              }
+              let data;
+              try {
+                ({ data } = await github.rest.pulls.get({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  pull_number: Number(pr),
+                }));
+              } catch (e) {
+                if (e.status === 404) {
+                  core.notice(`Skipping deploy: PR #${pr} does not exist.`);
+                  return;
+                }
+                throw e;
+              }
+              if (data.head.sha !== run.head_sha) {
+                core.notice(`Skipping deploy: build SHA ${run.head_sha} is not the head of PR #${pr}.`);
+                return;
+              }
+              if (data.state !== 'open') {
+                core.notice(`Skipping deploy: PR #${pr} is no longer open.`);
+                return;
+              }
+              core.setOutput('pr', pr);
+              core.setOutput('target_folder', `blog/pr-preview/pr-${pr}`);
+              core.setOutput('preview_url', `https://${context.repo.owner}.github.io/${context.repo.repo}/blog/pr-preview/pr-${pr}/`);
+            } else if (
+              (run.event === 'push' || run.event === 'workflow_dispatch') &&
+              run.head_branch === 'main'
+            ) {
+              // Freshness check: re-running an old successful build must
+              // not roll production back to stale content.
+              const { data: main } = await github.rest.repos.getBranch({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                branch: 'main',
+              });
+              if (main.commit.sha !== run.head_sha) {
+                core.notice(`Skipping deploy: build SHA ${run.head_sha} is not the current head of main.`);
+                return;
+              }
+              core.setOutput('target_folder', 'blog');
+            } else {
+              core.warning(`Not deploying: ${run.event} run on '${run.head_branch}'. Production publishes only from main.`);
+            }
+
+      # clean-exclude preserves blog/pr-preview/ on production deploys; for
+      # preview deploys it is a no-op and clean removes stale files from the
+      # preview itself.
+      - name: Deploy to gh-pages
+        if: steps.target.outputs.target_folder != ''
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          folder: site
+          branch: gh-pages
+          target-folder: ${{ steps.target.outputs.target_folder }}
+          clean: true
+          clean-exclude: pr-preview/
+          force: false
+
+      - name: Post or update PR comment
+        if: steps.target.outputs.pr != ''
+        uses: marocchino/sticky-pull-request-comment@v2
+        with:
+          header: blog-preview
+          number: ${{ steps.target.outputs.pr }}
+          message: |
+            📖 Blog preview ready: ${{ steps.target.outputs.preview_url }}
+
+            Built from ${{ github.event.workflow_run.head_sha }}.
