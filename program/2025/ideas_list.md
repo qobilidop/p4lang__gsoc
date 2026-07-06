@@ -20,8 +20,8 @@ Please check our [Contributor Guidance](contributor_guidance.md) for detailed in
 1. Fabian Ruffy ([@fruffy](https://github.com/fruffy), fruffy@nyu.edu)
 1. Jonathan DiLorenzo ([@jonathan-dilorenzo](https://github.com/jonathan-dilorenzo), dilo@google.com)
 1. Muhammad Shahbaz ([@msbaz2013](https://github.com/msbaz2013), msbaz@umich.edu)
-1. Murayyiam-Parvez ([@Murayyiam-Parvez](https://github.com/Murayyiam-Parvez), parvezm@purdue.edu)
-1. Tommaso Pecorella([@TommyPec](https://github.com/TommyPec), tommaso.pecorella@unifi.it)
+1. Murayyiam Parvez ([@Murayyiam-Parvez](https://github.com/Murayyiam-Parvez), parvezm@purdue.edu)
+1. Tommaso Pecorella ([@TommyPec](https://github.com/TommyPec), tommaso.pecorella@unifi.it)
 1. Walter Willinger
 
 ## FAQ
@@ -104,7 +104,7 @@ It means we expect you to have made relevant contributions in order to demonstra
 
 [p4-constraints](https://github.com/p4lang/p4-constraints) is a useful extension of the P4 programming language that is currently architected as a standalone library separate from the P4 compiler, P4C.
 
-<img width="757" alt="image" src="../2024/assets/p4_constraints.png">
+<img width="757" alt="image" src="assets/p4_constraints.png">
 
 The goal of this project is to integrate the p4-constraints frontend, which parses and type checks the constraint annotations, into the P4C frontend. This architecture change provides the following benefits:
 

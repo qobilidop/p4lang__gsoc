@@ -1,45 +1,30 @@
 # P4 GSoC
 
-## About
+This repository hosts materials for [The P4 Language Consortium](https://p4.org/)'s participation in [Google Summer of Code (GSoC)](https://summerofcode.withgoogle.com/).
 
-This repository is dedicated to [The P4 Language Consortium](https://p4.org/)'s participation in [Google Summer of Code](https://summerofcode.withgoogle.com/) (GSoC). In this repository, you will find materials for all ongoing and past P4 GSoC programs.
+## Where to start?
 
-## Ongoing Program
-<a href="2026/README.md" target="_blank">
-  <img src="https://img.shields.io/badge/Google%20Summer%20of%20Code-2026-fbbc05?style=flat&logo=google-summer-of-code" height="30"/>
-</a>
+- New to P4? Go through our [learning materials](handbook/learning_materials.md).
+- Curious what a successful project looks like? Read our [blog posts](https://p4lang.github.io/gsoc/blog/) of completed projects.
+- Ready to participate? Check out the [latest program](#programs) and our [contributor guidance](handbook/contributor_guidance.md).
 
+## Repository layout
 
-## Past Programs
+- [`program/`](program/): one directory per program year.
+- [`handbook/`](handbook/): evergreen docs shared across program years.
+- [`permapage/`](permapage/): one permanent page per completed project, with stable paths that are safe to cite externally.
+- [`blog/`](blog/): source of [our blog](https://p4lang.github.io/gsoc/blog/).
+- [`2024/`](2024/), [`2025/`](2025/): frozen legacy paths that keep old external links working, notably from the GSoC archive. Never delete or extend these.
 
-<a href="2025/README.md" target="_blank">
-  <img src="https://img.shields.io/badge/Google%20Summer%20of%20Code-2025-fbbc05?style=flat&logo=google-summer-of-code" height="30"/>
-</a>
-<br>
+## Programs
 
-<a href="2024/README.md" target="_blank">
-  <img src="https://img.shields.io/badge/Google%20Summer%20of%20Code-2024-fbbc05?style=flat&logo=google-summer-of-code" height="30"/>
-</a>
-
-## P4 Learning Materials
-
-For all our projects, it’s good to know some P4. Here are some learning materials:
-
-- General hands-on tutorials: https://github.com/p4lang/tutorials
-- Technical documentation on P4 related topics: https://github.com/jafingerhut/p4-guide?tab=readme-ov-file#introduction
-- Motivating P4: [IEEE ICC 2018 // Keynote: Nick McKeown, Programmable Forwarding Planes Are Here To Stay](https://www.youtube.com/watch?v=8ie0FcsN07U)
-- Introducing P4-16 in detail:
-  - Part 1: [Introduction to P4_16. Part 1](https://www.youtube.com/watch?v=GslseT4hY1w)
-  - Part 2: [Introduction to P4_16. Part 2](https://www.youtube.com/watch?v=yqxpypXIOtQ)
-- Material on the official P4 compiler:
-  - [Understanding the Open-Soure P416 Compiler - February 15, 2022 - Mihai Budiu](https://www.youtube.com/watch?v=Rx5AQ0IF6eU)
-  - [Understanding P416 Open-Source Compiler, Part 2 - March 1, 2022 - Mihai Budiu](https://www.youtube.com/watch?v=YnPHPaPSmpU)
-  - https://github.com/p4lang/p4c/blob/main/docs/compiler-design.pdf
-- Introduction to P4Runtime: [Next-Gen SDN Tutorial - Session 1: P4 and P4Runtime Basics](https://www.youtube.com/watch?v=KRx92qSLgo4)
+| Program | Accepted projects | Completed projects |
+| ------- | ----------------: | -----------------: |
+| [![P4 GSoC 2026](https://img.shields.io/badge/P4%20GSoC-2026-fbbc05?style=flat&logo=google-summer-of-code)](program/2026/README.md) | 5 | ongoing |
+| [![P4 GSoC 2025](https://img.shields.io/badge/P4%20GSoC-2025-fbbc05?style=flat&logo=google-summer-of-code)](program/2025/README.md) | 5 | 4 |
+| [![P4 GSoC 2024](https://img.shields.io/badge/P4%20GSoC-2024-fbbc05?style=flat&logo=google-summer-of-code)](program/2024/README.md) | 4 | 4 |
 
 ## Participants
-
-Everyone who has taken part in P4 GSoC so far.
 
 ### Contributors
 
@@ -66,9 +51,9 @@ Everyone who has taken part in P4 GSoC so far.
 <a href="https://github.com/annuszulfiqar2021"><img src="https://github.com/annuszulfiqar2021.png?size=64" width="64" height="64" title="Annus Zulfiqar" alt="Annus Zulfiqar"></a>
 <a href="https://github.com/antoninbas"><img src="https://github.com/antoninbas.png?size=64" width="64" height="64" title="Antonin Bas" alt="Antonin Bas"></a>
 <a href="https://github.com/asl"><img src="https://github.com/asl.png?size=64" width="64" height="64" title="Anton Korobeynikov" alt="Anton Korobeynikov"></a>
-<a href="https://github.com/blp"><img src="https://github.com/blp.png?size=64" width="64" height="64" title="Ben Pfaff" alt="Ben Pfaff"></a>
 <a href="https://github.com/dawndusk0508"><img src="https://github.com/dawndusk0508.png?size=64" width="64" height="64" title="Peng Qian" alt="Peng Qian"></a>
 <a href="https://github.com/depctg"><img src="https://github.com/depctg.png?size=64" width="64" height="64" title="Zhiyuan Guo" alt="Zhiyuan Guo"></a>
+<a href="https://github.com/drobinkent"><img src="https://github.com/drobinkent.png?size=64" width="64" height="64" title="Debobroto (Robin) Das" alt="Debobroto (Robin) Das"></a>
 <a href="https://github.com/evhalep"><img src="https://github.com/evhalep.png?size=64" width="64" height="64" title="Evangelos Haleplidis" alt="Evangelos Haleplidis"></a>
 <a href="https://github.com/fruffy"><img src="https://github.com/fruffy.png?size=64" width="64" height="64" title="Fabian Ruffy" alt="Fabian Ruffy"></a>
 <a href="https://github.com/iHalt10"><img src="https://github.com/iHalt10.png?size=64" width="64" height="64" title="Takeaki Oura" alt="Takeaki Oura"></a>
@@ -76,12 +61,14 @@ Everyone who has taken part in P4 GSoC so far.
 <a href="https://github.com/jhsmt"><img src="https://github.com/jhsmt.png?size=64" width="64" height="64" title="Jamal Hadi Salim" alt="Jamal Hadi Salim"></a>
 <a href="https://github.com/jonathan-dilorenzo"><img src="https://github.com/jonathan-dilorenzo.png?size=64" width="64" height="64" title="Jonathan DiLorenzo" alt="Jonathan DiLorenzo"></a>
 <a href="https://github.com/jxlin-lock"><img src="https://github.com/jxlin-lock.png?size=64" width="64" height="64" title="Jiaxin Lin" alt="Jiaxin Lin"></a>
+<a href="https://github.com/kheradmand"><img src="https://github.com/kheradmand.png?size=64" width="64" height="64" title="Ali Kheradmand" alt="Ali Kheradmand"></a>
 <a href="https://github.com/matthewtlam"><img src="https://github.com/matthewtlam.png?size=64" width="64" height="64" title="Matthew Lam" alt="Matthew Lam"></a>
 <a href="https://github.com/msbaz2013"><img src="https://github.com/msbaz2013.png?size=64" width="64" height="64" title="Muhammad Shahbaz" alt="Muhammad Shahbaz"></a>
 <a href="https://github.com/qobilidop"><img src="https://github.com/qobilidop.png?size=64" width="64" height="64" title="Bili Dong" alt="Bili Dong"></a>
 <a href="https://github.com/rst0git"><img src="https://github.com/rst0git.png?size=64" width="64" height="64" title="Radostin Stoyanov" alt="Radostin Stoyanov"></a>
 <a href="https://github.com/thantry"><img src="https://github.com/thantry.png?size=64" width="64" height="64" title="Hari Thantry" alt="Hari Thantry"></a>
 <a href="https://github.com/vbnogueira"><img src="https://github.com/vbnogueira.png?size=64" width="64" height="64" title="Victor Nogueira" alt="Victor Nogueira"></a>
+<a href="https://github.com/verios-google"><img src="https://github.com/verios-google.png?size=64" width="64" height="64" title="Victor Rios" alt="Victor Rios"></a>
 
 ### Org admins
 
